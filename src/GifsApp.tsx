@@ -8,13 +8,21 @@ import Searchbar from "./shared/components/Searchbar"
 
 const GifsApp = () => {
 
-  const [previousSearches, setPreviousSearches] = useState(["kokun"])
+  const [previousSearches, setPreviousSearches] = useState(["Kokun"])
 
   const handleClickedTerms = (term: string) => {
     console.log({ term })
   }
-  const handleSearchBar = (query: string) => {
-    console.log({ query })
+
+  const handleSearchBar = (query: string = "") => {
+    query = query.trim().toLowerCase();
+
+    if (query.length === 0) return
+
+    if (previousSearches.includes(query)) return
+
+    setPreviousSearches([query, ...previousSearches].slice(0, 5))
+
   }
 
   return (
@@ -23,7 +31,7 @@ const GifsApp = () => {
       <Header title="Gifhub " description="Diviertete buscando gifs" />
 
       {/*Barra de busqueda*/}
-      <Searchbar placeholder="Encuentra tu GIF" onQuery={handleSearchBar}/>
+      <Searchbar placeholder="Encuentra tu GIF" onQuery={handleSearchBar} />
 
       {/*Busquedas anteriores*/}
       <PreviousSearches prevSearches={previousSearches} onLabelClick={handleClickedTerms} />

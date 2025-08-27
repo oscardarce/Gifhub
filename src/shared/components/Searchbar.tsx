@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface SearchBarProps {
   placeholder?: string,
@@ -8,6 +8,22 @@ interface SearchBarProps {
 const Searchbar = ({ placeholder = "Buscar", onQuery }: SearchBarProps) => {
 
   const [query, setQuery] = useState("")
+
+  useEffect(() => {
+
+
+    /* Obligamos a que se entregue el query 0.7s despues 
+    de que el usuario deja de escribir asi así no hay problemas de performance
+    ya que no se ejecuta el query cada vez que se realiza un cambio en el input*/
+    const timeOutId = setTimeout(() => {
+      onQuery(query)
+    }, 700);
+
+    /* ClearTimeout(timeOutId) funcion de JS integrada por default*/
+    return () => {
+      clearTimeout(timeOutId)
+    }
+  }, [query, setQuery])
 
   const handleSearchButton = () => {
     onQuery(query)
