@@ -22,7 +22,6 @@ export interface GiphyGif {
   source_caption?: string;
   is_sticker: number;
   import_datetime: Date;
-  trending_datetime: Date | TrendingDatetimeEnum;
   images: Images;
   user?: User;
   analytics_response_payload: string;
@@ -100,18 +99,9 @@ export interface Looping {
   mp4: string;
 }
 
-export enum Rating {
-  G = "g",
-  PG = "pg",
-}
+export type Rating = "G" | "Pg";
 
-export enum TrendingDatetimeEnum {
-  The00000000000000 = "0000-00-00 00:00:00",
-}
-
-export enum Type {
-  GIF = "gif",
-}
+export type Type = "gif"
 
 export interface User {
   avatar_url: string;
